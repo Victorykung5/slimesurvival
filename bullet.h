@@ -6,7 +6,7 @@ class bullet
 {
 public:
 	sf::CircleShape shoot;
-	int bulletspeed = 800;
+	int bulletspeed = 600;
 	float a = 0;
 	bool shootbol = true;
 	void drawbullet(char slimeface, float deltatime, sf::RenderWindow** window, sf::Vector2f positionslime,float shootime, sf::Vector2f positionview);

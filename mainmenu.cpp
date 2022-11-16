@@ -324,6 +324,8 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         {  
             *gamestate = 'g';
+            Sleep(200);
+
           
         }
         window->draw(a[i]);

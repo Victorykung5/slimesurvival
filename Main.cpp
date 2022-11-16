@@ -79,9 +79,10 @@ int main()
 		//game
 		if (gamestate == 'g')
 		{
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 			{
-				slime1.curhp = 1;
+				gamestate = 'p';
+				Sleep(200);
 			}
 			window.draw(field);
 			window.draw(slime1.spell);
