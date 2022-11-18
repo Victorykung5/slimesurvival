@@ -372,11 +372,11 @@ void slime::slimemove(sf::RenderWindow* window, sf::View* view1, float deltatime
 				}
 				if (i == 0)
 				{
-					shoot[i].drawbullet(slimeface, deltatime, &window,positionslime,shootcooldown,positionview);
+					shoot[i].drawbullet(slimeface, deltatime, &window,positionslime,shootcooldown,positionview,numbullet,i);
 				}
 				else
 				{
-					shoot[i].drawbullet(shoot[0].k, deltatime, &window, positionslime,shootcooldown,positionview);
+					shoot[i].drawbullet(shoot[0].k, deltatime, &window, positionslime,shootcooldown,positionview,numbullet,i);
 				}
 			}
 			for (int i = numbullet; i < 5; i++)

@@ -36,7 +36,7 @@ void gamelogic::logic(sf::RenderWindow* window, sf::View view, slime* slime1, st
 					{
 						int a = rand() % 100;
 						eatfood[3].setBuffer(soundbuffer[3]);
-						eatfood[3].setVolume(50);
+						eatfood[3].setVolume(30);
 						eatfood[3].play();
 						//expdrop
 						if (a < 100)
@@ -117,7 +117,7 @@ void gamelogic::logic(sf::RenderWindow* window, sf::View view, slime* slime1, st
 				{
 					slime1->curhp -= knight1[i]->knightdam;
 					slime1->damageable = false;
-					eatfood[1].setVolume(10);
+					eatfood[1].setVolume(20);
 					eatfood[1].setBuffer(soundbuffer[1]);
 			     	eatfood[1].play();
 					if (slime1->curhp <= 0)
@@ -128,7 +128,7 @@ void gamelogic::logic(sf::RenderWindow* window, sf::View view, slime* slime1, st
 					if (knight1[i]->knighttype == 'n')
 					{
 						eatfood[3].setBuffer(soundbuffer[3]);
-						eatfood[3].setVolume(50);
+						eatfood[3].setVolume(30);
 						eatfood[3].play();
 						knight1.erase(knight1.begin() + i);
 					}
