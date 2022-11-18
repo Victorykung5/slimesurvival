@@ -5,8 +5,9 @@ gamelogic::gamelogic()
 	food[1].loadFromFile("acces/food/2.png");
 	food[2].loadFromFile("acces/food/3.png");
 	food[3].loadFromFile("acces/food/4.png");
-	soundbuffer[1].loadFromFile("acces/sound/Battle-melee-accent-sword-swing-902.wav");
-	soundbuffer[0].loadFromFile("acces/sound/EatingFood1.wav");
+	soundbuffer[1].loadFromFile("acces/sound/DesignedPunch1.wav");
+	soundbuffer[0].loadFromFile("acces/sound/EatingFood1.wav");	
+	soundbuffer[3].loadFromFile("acces/sound/Battle-melee-accent-sword-swing-902.wav");
 	soundbuffer[2].loadFromFile("acces/sound/Minecraft-XP-Sound.wav");
 	float knightexp = 5;
 	float knightscore = 5;
@@ -21,9 +22,11 @@ gamelogic::gamelogic()
 void gamelogic::logic(sf::RenderWindow* window, sf::View view, slime* slime1, std::vector<knight*>& knight1, float deltatime, char* gamestate)
 {
 	//damage
-	for (int i = 0; i < knight1.size(); i++)
+	if (knight1.size() > 0)
+	{
+		for (int i = 0; i < knight1.size(); i++)
 		{
-		    //enimetakedam
+			//enimetakedam
 			for (int p = 0; p < slime1->numbullet; p++)
 			{
 				if (knight1[i]->knighthitbox.getGlobalBounds().intersects(slime1->shoot[p].shoot.getGlobalBounds()))
@@ -32,34 +35,38 @@ void gamelogic::logic(sf::RenderWindow* window, sf::View view, slime* slime1, st
 					if (knight1[i]->knighthelth <= 0)
 					{
 						int a = rand() % 100;
+						eatfood[3].setBuffer(soundbuffer[3]);
+						eatfood[3].setVolume(50);
+						eatfood[3].play();
 						//expdrop
 						if (a < 100)
 						{
 							int xplus = pow(-1, rand() % 2) * (rand() % 20);
 							int yplus = pow(-1, rand() % 2) * (rand() % 50);
 							exp.push_back(new sf::CircleShape);
-							exp[exp.size()-1]->setOutlineColor(sf::Color::Black);
-							exp[exp.size()-1]->setFillColor(sf::Color::Cyan);
-							exp[exp.size()-1]->setOrigin(6, 6);
-							exp[exp.size()-1]->setOutlineThickness(1.5);
-							exp[exp.size()-1]->setRadius(6);
-							exp[exp.size()-1]->setPosition(knight1[i]->knightposition.x + xplus,knight1[i]->knightposition.y + yplus);
-							int k = exp[exp.size() - 1]->getRadius();
-			
-				     	}
+							if (exp.size() > 0)
+							{
+								exp[exp.size() - 1]->setOutlineColor(sf::Color::Black);
+								exp[exp.size() - 1]->setFillColor(sf::Color::Cyan);
+								exp[exp.size() - 1]->setOrigin(6, 6);
+								exp[exp.size() - 1]->setOutlineThickness(1.5);
+								exp[exp.size() - 1]->setRadius(6);
+								exp[exp.size() - 1]->setPosition(knight1[i]->knightposition.x + xplus, knight1[i]->knightposition.y + yplus);
+							}
+						}
 						//hpdrop
-						if (a < 90)
+						if (a < 25)
 						{
 							int xplus = pow(-1, rand() % 2) * (rand() % 30);
 							int yplus = pow(-1, rand() % 2) * (rand() % 45);
 							hp.push_back(new sf::CircleShape);
 							hp[hp.size() - 1]->setRadius(20);
 							hp[hp.size() - 1]->setOrigin(20, 20);
-							hp[hp.size() - 1]->setPosition(knight1[i]->knightposition.x + xplus,knight1[i]->knightposition.y + yplus);
-							hp[hp.size()-1]->setTexture(&food[rand() % 4]);
+							hp[hp.size() - 1]->setPosition(knight1[i]->knightposition.x + xplus, knight1[i]->knightposition.y + yplus);
+							hp[hp.size() - 1]->setTexture(&food[rand() % 4]);
 
 						}
-		                knight1.erase(knight1.begin()+i);
+						knight1.erase(knight1.begin() + i);
 						slime1->score += knight1[i]->knightscore;
 					}
 					else
@@ -110,21 +117,26 @@ void gamelogic::logic(sf::RenderWindow* window, sf::View view, slime* slime1, st
 				{
 					slime1->curhp -= knight1[i]->knightdam;
 					slime1->damageable = false;
+					eatfood[1].setVolume(10);
 					eatfood[1].setBuffer(soundbuffer[1]);
-					eatfood[1].play();
+			     	eatfood[1].play();
 					if (slime1->curhp <= 0)
 					{
 						*gamestate = 'o';
-						
+
 					}
 					if (knight1[i]->knighttype == 'n')
 					{
+						eatfood[3].setBuffer(soundbuffer[3]);
+						eatfood[3].setVolume(50);
+						eatfood[3].play();
 						knight1.erase(knight1.begin() + i);
 					}
 				}
 			}
-			
+
 		}
+	}
 	//exppickup
 	if (exp.size() > 0)
 	{

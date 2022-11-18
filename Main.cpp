@@ -19,12 +19,10 @@ int main()
 	playingbuff[0].loadFromFile("acces/sound/main.ogg");
 	playingbuff[1].loadFromFile("acces/sound/play.ogg");
 	char gamestate = 's';
-	sf::Vector2u windowsize;
 	slime slime1;
 	sf::Clock deltatime1;
 	int numspawn = 1;
 	float deltatime = 0.f;
-	int maxknight = 10;
 	/////field
 	sf::Sprite field;
 	sf::Texture texfield;
@@ -37,13 +35,13 @@ int main()
 	sf::Time time2;
 	float clock15sec = 0;
 	int numknight = 1;
-	char laststate = 's';
+	char laststate = '?';
 	std::vector<knight*> knight1;
 	playing.setBuffer(playingbuff[0]);
 	srand(time(NULL));
 	slime1.Slime.setPosition(2000, 500);
 	int k = 1, a = 0, b = 0;
-	float mmainknightspeed = 50, mmainknighthelth = 3, damknight = 1, expknight = 5, scoreknight = 5;
+	float mmainknightspeed = 50, mmainknighthelth = 1.5, damknight = 1, expknight = 5, scoreknight = 5;
 	mainmenu mainmenu;
 	sf::View view1;
 	view1.setSize(960, 680);
@@ -52,7 +50,6 @@ int main()
 	playing.setVolume(3);
 	bool reset = false;
 	playing.play();
-	knight1.push_back(new knight('k', mmainknighthelth, mmainknightspeed, damknight, expknight, scoreknight));
 	float debount = 0;
 	slime1.setup();
 	sf::RenderWindow window(sf::VideoMode(1080, 720), "Slime Survival 2", sf::Style::Default);
@@ -85,7 +82,10 @@ int main()
 				Sleep(200);
 			}
 			window.draw(field);
-			window.draw(slime1.spell);
+			if (slime1.spelling == true)
+			{
+				window.draw(slime1.spell);
+			}
 			slime1.slimemove(&window, &view1, deltatime, &gamestate);
 			timespawn += deltatime;
 			clock1min += deltatime;
@@ -97,30 +97,32 @@ int main()
 					char type;
 					int k = rand() % 2;
 					if (k == 1)
-						type = 'k';
+						type = 'n';
 					else
 					{
-						type = 'n';
+						type = 'k';
 					}
-					knight1.push_back(new knight(type, mmainknighthelth, mmainknightspeed, damknight, expknight, scoreknight));
+					knight1.push_back(new knight(type, mmainknighthelth, mmainknightspeed, damknight, expknight, scoreknight,slime1));
 				}
 				clock1min -= 5;
 			}
 			if (clock15sec > 60)
 			{
 				numspawn++;
-				mmainknightspeed += 5;
-				mmainknighthelth += 3;
+				mmainknighthelth += 4;
 				damknight += 1.5;
 				scoreknight += 10;
-				expknight += 10;
+				expknight += 5;
 				clock15sec -= 60;
 			}
-			for (int i = 0; i < knight1.size(); i++)
+			if (knight1.size() > 0)
 			{
-				knight1[i]->knightmove(&window, slime1, slime1.positionslime.x,
-					slime1.positionslime.y, slime1.positionview.x, slime1.positionview.y, deltatime, knight1, numknight, i);
+				for (int i = 0; i < knight1.size(); i++)
+				{
+					knight1[i]->knightmove(&window, slime1, slime1.positionslime.x,
+						slime1.positionslime.y, slime1.positionview.x, slime1.positionview.y, deltatime, knight1, numknight, i);
 
+				}
 			}
 			logic.logic(&window, view1, &slime1, knight1, deltatime, &gamestate);
 			slime1.drawslime(&window, &gamestate);
@@ -167,13 +169,13 @@ int main()
 				clock1min = 0;
 				clock15sec = 0;
 				reset = false;
+				mainmenu.input.clear();
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) && gamestate == 'o')
 			{
 				reset = true;
 			}
 			laststate = gamestate;
-			windowsize = window.getSize();
 			window.display();
 			window.clear();
 		}

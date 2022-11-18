@@ -6,7 +6,7 @@
 sf::Sprite test;
 sf::Texture food[4];
 int rannum = 0;
-knight::knight(char type,float mmainknighthelth,float mmainknightspeed ,float damknight ,float expknight,float scoreknight)
+knight::knight(char type,float mmainknighthelth,float mmainknightspeed ,float damknight ,float expknight,float scoreknight,slime slime1)
 {
 	knighttype = type;
 	rannum = 0;
@@ -37,7 +37,8 @@ knight::knight(char type,float mmainknighthelth,float mmainknightspeed ,float da
 	{
 		knightspeed = mmainknightspeed;
 		knighthelth = mmainknighthelth;
-		mainknighthelth = mmainknighthelth, knightdam = damknight;
+		mainknighthelth = mmainknighthelth,
+		knightdam = damknight;
 		knightmainspeed = mmainknightspeed;
 		switchtime = 0.3;
 	}
@@ -45,7 +46,11 @@ knight::knight(char type,float mmainknighthelth,float mmainknightspeed ,float da
     {
 		knightspeed = mmainknightspeed*2.5;
 		knighthelth = 0.5;
-		mainknighthelth = 0.5, knightdam = damknight;
+		mainknighthelth = 0.5;
+		if (slime1.Lv > 10)
+			knightdam = damknight * 1.5;
+		else
+			knightdam = damknight;
 		knightmainspeed = mmainknightspeed*2.5;
 		switchtime = 0.15;
 	}
@@ -102,12 +107,15 @@ void knight::knightmove(sf::RenderWindow* window, slime slime1, float slimex, fl
 				    Knight0.setTexture(knightTexture[0]);
 					Knight0.setTextureRect(sf::IntRect(52 * knightframe, 0, 52, 60));
 					moving[0] = true;
-					for (int i = 0; i < knight1.size(); i++)
+					if (knight1.size() > 0)
 					{
-						if (knighthitbox.getGlobalBounds().contains(knight1[i]->knightposition.x, knight1[i]->knightposition.y - 25) && i != knighti)
+						for (int i = 0; i < knight1.size(); i++)
 						{
-							moving[0] = false;
-							break;
+							if (knighthitbox.getGlobalBounds().contains(knight1[i]->knightposition.x, knight1[i]->knightposition.y - 25) && i != knighti)
+							{
+								moving[0] = false;
+								break;
+							}
 						}
 					}
 					if (knighttype == 'k')
@@ -123,12 +131,15 @@ void knight::knightmove(sf::RenderWindow* window, slime slime1, float slimex, fl
 			    	Knight0.setTexture(knightTexture[1]);
 					Knight0.setTextureRect(sf::IntRect(52.6 * knightframe, 0, 52.6, 60));
 					moving[1] = true;
-					for (int i = 0; i < knight1.size(); i++)
+					if (knight1.size() > 0)
 					{
-						if (knighthitbox.getGlobalBounds().contains(knight1[i]->knightposition.x, knight1[i]->knightposition.y+25)&&i!=knighti)
+						for (int i = 0; i < knight1.size(); i++)
 						{
-							moving[1] = false;
-							break;
+							if (knighthitbox.getGlobalBounds().contains(knight1[i]->knightposition.x, knight1[i]->knightposition.y + 25) && i != knighti)
+							{
+								moving[1] = false;
+								break;
+							}
 						}
 					}
 					if (moving[1] == true)
@@ -150,12 +161,15 @@ void knight::knightmove(sf::RenderWindow* window, slime slime1, float slimex, fl
 				Knight0.setTexture(knightTexture[2]);
 				Knight0.setTextureRect(sf::IntRect(51 * knightframe, 0, 51, 60));
 				moving[2] = true;
-				for (int i = 0; i < knight1.size(); i++)
+				if (knight1.size() > 0)
 				{
-					if (knighthitbox.getGlobalBounds().contains(knight1[i]->knightposition.x-15, knight1[i]->knightposition.y) && i != knighti)
+					for (int i = 0; i < knight1.size(); i++)
 					{
-						moving[2] = false;
-						break;
+						if (knighthitbox.getGlobalBounds().contains(knight1[i]->knightposition.x - 15, knight1[i]->knightposition.y) && i != knighti)
+						{
+							moving[2] = false;
+							break;
+						}
 					}
 				}
 				if (knighttype == 'k')
@@ -171,12 +185,15 @@ void knight::knightmove(sf::RenderWindow* window, slime slime1, float slimex, fl
 				Knight0.setTexture(knightTexture[3]);
 				Knight0.setTextureRect(sf::IntRect(50 * knightframe, 0, 50, 60));
 				moving[3] = true;
-				for (int i = 0; i < knight1.size(); i++)
+				if (knight1.size() > 0)
 				{
-					if (knighthitbox.getGlobalBounds().contains(knight1[i]->knightposition.x + 15, knight1[i]->knightposition.y)&&i!=knighti)
+					for (int i = 0; i < knight1.size(); i++)
 					{
-						moving[3] = false;
-						break;
+						if (knighthitbox.getGlobalBounds().contains(knight1[i]->knightposition.x + 15, knight1[i]->knightposition.y) && i != knighti)
+						{
+							moving[3] = false;
+							break;
+						}
 					}
 				}
 				if (knighttype == 'k')

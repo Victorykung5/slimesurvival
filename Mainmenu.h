@@ -9,8 +9,8 @@ public:
 	sf::Vector2f viewpos;
 	sf::RectangleShape center;
 	sf::Sprite slime2;
-	sf::Texture spritetex2[4];
-	sf::Sprite sprite2[4];
+	sf::Texture spritetex2[5];
+	sf::Sprite sprite2[5];
 	struct scoreboardstruck
 	{
 		std::string name;
@@ -18,12 +18,13 @@ public:
 		int scoreint;
 	}scoreboard[6],temp;
 	mainmenu();
-	void writefile();
+	void writefile();	
+	sf::String input;
 	void checkhightscore(int score);
 	void mainmenudraw(sf::RenderWindow* window, sf::View View1, char* gamestate, slime* slime1, float deltatime, bool* reset, sf::Event ev);
 private:
 	sf::Text inputtext;
-	sf::String input;
+
 	sf::Text speed, attack;
 	sf::Text hp;
 };

@@ -17,7 +17,7 @@ float knightscore;
 sf::Vector2f knightposition;
 int knightready = 0;
 char knighttype = 'n';
-knight(char type, float mmainknighthelth, float mmainknightspeed, float damknight, float expknight = 5, float scoreknight = 5);
+knight(char type, float mmainknighthelth, float mmainknightspeed, float damknight, float expknight, float scoreknight, slime slime1);
 void setup();
 void knightmove(sf::RenderWindow* window, slime slime, float slimex,float slimey,float viewx,float viewy, float deltatime, std::vector<knight*> &knight1,int numknight,int knighti);
 void update(sf::RenderWindow* windwo, slime *slime1, float deltatime,char* gamestate);

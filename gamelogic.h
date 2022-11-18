@@ -21,8 +21,8 @@ private:
 	int rannum = 0;
 	sf::Texture knightTexture[5];
 	float expspeedx, expspeedy;
-	sf::SoundBuffer soundbuffer[3];//0=eatfood 1=knightattackslime  2=expget
-	sf::Sound eatfood[3];
+	sf::SoundBuffer soundbuffer[5];//0=eatfood 1=knightattackslime  2=expget
+	sf::Sound eatfood[5];
 	sf::Texture food[4];
 	bool moving[4]{ true,true,true,true };
 	bool knockbacking[4]{ true,true,true,true };

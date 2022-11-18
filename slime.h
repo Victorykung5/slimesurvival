@@ -8,7 +8,7 @@ class slime
 {  public:
 	float slimespeed =90;
 	int curexp=0,maxexp=5;
-	int curhp = 5, maxhp = 5,numbullet=2;
+	int curhp = 5, maxhp = 5,numbullet=1;
 	int score=0;
 	bool aimming = false;
 	float shootdam = 0.75;
@@ -38,6 +38,7 @@ class slime
 	void slimemove(sf::RenderWindow* window,sf::View *view1,float deltatime,char* gamestate);
 	void drawslime(sf::RenderWindow* window, char* gamestate);
 	sf::CircleShape spell;
+	float shootcur = 0;
 private:
 	sf::Font Txt;
 	bool spellon=false;
@@ -59,7 +60,6 @@ private:
 	float a = 0;
 	char lastlog = '?';
 	float si = 0,regenrate=0;
-	float shootcur = 0;
 	sf::RectangleShape maxshootbar;
 	sf::RectangleShape shootbar;
 };

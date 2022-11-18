@@ -13,6 +13,13 @@ void slime::setup()
 	}
 	shootcooldown = 3.0;
 	a = 0;
+	shootcur = 0;
+	for (int i = 0; i < 5; i++)
+	{
+		shoot[i].a = 0;
+		shoot[i].k = '?';
+		shoot[i].shootbol = false;
+    }
 	slimehitbox.setRadius(18);
 	slimehitbox.setOrigin(18, 13);
 	Slime.setOrigin(28.f, 22.f);
@@ -61,7 +68,7 @@ void slime::setup()
 	spellon = false;
 	slimespeed = 90;
 	curexp = 0, maxexp = 5;
-	curhp = 5, maxhp = 5, numbullet = 2;
+	curhp = 5, maxhp = 5, numbullet = 1;
 	score = 0;
 	aimming = false;
 	shootdam = 0.75;
@@ -72,6 +79,7 @@ void slime::setup()
 	maxshootbar.setOutlineThickness(1);
 	maxshootbar.setFillColor(sf::Color::Black);
 	shootbar.setFillColor(sf::Color::Yellow);
+		
 	}
 void slime::slimemove(sf::RenderWindow* window, sf::View* view1, float deltatime, char* gamestate)
 {
@@ -85,8 +93,9 @@ void slime::slimemove(sf::RenderWindow* window, sf::View* view1, float deltatime
 	}
 	//main slimemove
 	{
-		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::W)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::A))) {
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::W)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+			|| (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))) {
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) )
 			{
 				gx = -1;
 				slimeface = 'w';
@@ -106,13 +115,13 @@ void slime::slimemove(sf::RenderWindow* window, sf::View* view1, float deltatime
 				gx = -1;
 				slimeface = 'a';
 			}
-			if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A)) && (sf::Keyboard::isKeyPressed(sf::Keyboard::S)))
+			if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A) && sf::Keyboard::isKeyPressed(sf::Keyboard::S)))
 			{
 				slimeface = '3';
 				gx = -1;
 				gy = 1;
 			}
-			if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) && (sf::Keyboard::isKeyPressed(sf::Keyboard::S)))
+			if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)&&sf::Keyboard::isKeyPressed(sf::Keyboard::S)))
 			{
 				slimeface = '4';
 				gx = 1;
@@ -152,7 +161,7 @@ void slime::slimemove(sf::RenderWindow* window, sf::View* view1, float deltatime
 			{
 				if (gy != 0)
 				{
-					if (positionslime.y > 85 && sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+					if (positionslime.y > 85 && (sf::Keyboard::isKeyPressed(sf::Keyboard::W)))
 					{
 						Slime.move(0, -slimespeed * deltatime);
 					}
@@ -355,7 +364,7 @@ void slime::slimemove(sf::RenderWindow* window, sf::View* view1, float deltatime
 		a += deltatime;		
 		for (int i = 0; i < 5; i++)
 		{
-			if (a >= 0.05 * (i)) 
+			if (a >= 0.04 * (i)) 
 			{
 				if (aimming == false)
 				{
@@ -401,13 +410,17 @@ void slime::slimemove(sf::RenderWindow* window, sf::View* view1, float deltatime
 		 Lv++;
 		 maxhp += 1;
 		 curhp += 1;
-		 slimespeed += 1;
 		 if (Lv == 3)
 		 {
 			 spellon = true;
 		 }
 		 curexp -= maxexp;
-		 maxexp += 5;
+		 if(Lv>10)
+		 maxexp += 10;
+		 else
+		 {
+			 maxexp += 5;
+		 }
 		 *gamestate = 'm';
 	 }
 	 

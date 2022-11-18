@@ -2,7 +2,6 @@
 #include <iostream>
 #include "bullet.h"
 #include "slime.h"
-bool ready = true;
 sf::Texture bullettex;
 void bullet::drawbullet(char slimeface, float deltatime, sf::RenderWindow** window, sf::Vector2f positionslime,float shootime, sf::Vector2f positionview)
 {
