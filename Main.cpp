@@ -21,6 +21,9 @@ int main()
 	char gamestate = 's';
 	slime slime1;
 	sf::Clock deltatime1;
+	sf::Image icon;
+	icon.loadFromFile ("acces/logo/unnamed.png"); // File/Image/Pixel
+	
 	int numspawn = 1;
 	float deltatime = 0.f;
 	/////field
@@ -53,6 +56,7 @@ int main()
 	float debount = 0;
 	slime1.setup();
 	sf::RenderWindow window(sf::VideoMode(1080, 720), "Slime Survival 2", sf::Style::Default);
+	window.setIcon(icon.getSize().x,icon.getSize().y,icon.getPixelsPtr());
 	//start
 	while (window.isOpen())
 	{

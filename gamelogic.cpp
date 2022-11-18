@@ -73,7 +73,6 @@ void gamelogic::logic(sf::RenderWindow* window, sf::View view, slime* slime1, st
 					{
 						if (slime1->shoot[i].k == 'd')
 						{
-
 							knight1[i]->Knight0.move(14, 0);
 						}
 						else if (slime1->shoot[i].k == 'a' && moving[3] == true)

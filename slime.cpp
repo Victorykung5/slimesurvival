@@ -65,13 +65,14 @@ void slime::setup()
 	maxhpbar.setFillColor(sf::Color::Red);
 	hpbar.setFillColor(sf::Color::Green);
 	slimeface = '\0';
-	spellon = false;
+	spellon = true;
 	slimespeed = 90;
 	curexp = 0, maxexp = 5;
 	curhp = 5, maxhp = 5, numbullet = 1;
 	score = 0;
 	aimming = false;
 	shootdam = 0.75;
+	curcooldown = 0;
 	curtime = 0, min = 0, sec = 0, dmin = 0, dsec = 0;
 	Lv = 1;
 	shootcur = 0;
