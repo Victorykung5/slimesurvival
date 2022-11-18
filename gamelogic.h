@@ -16,7 +16,7 @@ public:
 	gamelogic();
 	std::vector<sf::CircleShape*> hp;
 	std::vector<sf::CircleShape*> exp;
-	void logic(sf::RenderWindow* window, sf::View view, slime *slime1, std::vector<knight*> &knight1, float deltatime, char* gamestate);
+	void logic(sf::RenderWindow* window, sf::View view, slime *slime1, std::vector<knight*> &knight1, float deltatime, char* gamestate,float knightexp);
 private:
 	int rannum = 0;
 	sf::Texture knightTexture[5];

@@ -80,7 +80,15 @@ void slime::setup()
 	maxshootbar.setOutlineThickness(1);
 	maxshootbar.setFillColor(sf::Color::Black);
 	shootbar.setFillColor(sf::Color::Yellow);
-		
+	int x = rand();
+	if (x % 3 == 0)
+		spelltype = 'r';
+	else if (x % 3 == 1)
+		spelltype = 's';
+	else
+	{
+		spelltype = 't';
+	}
 	}
 void slime::slimemove(sf::RenderWindow* window, sf::View* view1, float deltatime, char* gamestate)
 {
@@ -410,7 +418,13 @@ void slime::slimemove(sf::RenderWindow* window, sf::View* view1, float deltatime
 	 if (curexp >= maxexp) {
 		 Lv++;
 		 maxhp += 1;
-		 curhp += 1;
+		 if (curhp <= maxhp - 2)
+			 curhp += 2;
+		 else
+		 {
+            curhp += 1;
+		 }
+		 
 		 if (Lv == 3)
 		 {
 			 spellon = true;

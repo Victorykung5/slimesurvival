@@ -25,7 +25,6 @@ void bullet::drawbullet(char slimeface, float deltatime, sf::RenderWindow** wind
 		k = slimeface;
 		if (i<numbulet)
 		{
-			std::cout << "hi\n";
 			piew.play();
 		}
 	}

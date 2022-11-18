@@ -118,6 +118,7 @@ int main()
 				scoreknight += 10;
 				expknight += 5;
 				clock15sec -= 60;
+				slime1.shootdam++;
 			}
 			if (knight1.size() > 0)
 			{
@@ -125,10 +126,9 @@ int main()
 				{
 					knight1[i]->knightmove(&window, slime1, slime1.positionslime.x,
 						slime1.positionslime.y, slime1.positionview.x, slime1.positionview.y, deltatime, knight1, numknight, i);
-
 				}
 			}
-			logic.logic(&window, view1, &slime1, knight1, deltatime, &gamestate);
+			logic.logic(&window, view1, &slime1, knight1, deltatime, &gamestate,expknight);
 			slime1.drawslime(&window, &gamestate);
 			window.setView(view1);
 			if (slime1.curhp <= 0)
@@ -167,13 +167,12 @@ int main()
 				slime1.setup();
 				slime1.Slime.setPosition(2000, 500);
 				view1.setCenter(2000, 500);
-				mmainknightspeed = 50, mmainknighthelth = 3, damknight = 1, expknight = 5, scoreknight = 5;
+				mmainknightspeed = 50, mmainknighthelth = 1.5, damknight = 1, expknight = 5, scoreknight = 5;
 				timespawn = 0;
 				numspawn = 1;
 				clock1min = 0;
 				clock15sec = 0;
 				reset = false;
-				mainmenu.input.clear();
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) && gamestate == 'o')
 			{

@@ -62,7 +62,7 @@ void mainmenu::checkhightscore(int scoreslime)
     }
     score.close();
 }
-void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* gamestate,slime *slime1,float deltatime, bool* reset,sf::Event ev)
+void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* gamestate, slime* slime1, float deltatime, bool* reset, sf::Event ev)
 {
     //rgb
     if (true)
@@ -97,7 +97,7 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
     bottonbuff.loadFromFile("acces/sound/AnyConv.com__sound_click_sound.wav");
     botton.setBuffer(bottonbuff);
     debount += deltatime;
-    Font font1;    
+    Font font1;
     viewpos = View1.getCenter();
     font1.loadFromFile("SunnyspellsRegular-MV9ze.otf");
     Font font2;
@@ -116,7 +116,7 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
         Text gamename;
         gamename.setFillColor(sf::Color(50, 205, 50));
         gamename.setFont(font1);
-        gamename.setOutlineColor(sf::Color(rplus,bplus,gplus));
+        gamename.setOutlineColor(sf::Color(rplus, bplus, gplus));
         gamename.setOutlineThickness(10);
         gamename.setCharacterSize(130);
         gamename.setPosition(viewpos.x - 330, viewpos.y - 350);
@@ -175,7 +175,7 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
         a[2].setOutlineThickness(4);
         a[2].setPosition(viewpos.x - 63, viewpos.y + 56.5);
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)&&debount>0.25)
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && debount > 0.25)
         {
             i++;
             if (i == 3)
@@ -194,8 +194,8 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
         {
             if (i == 0)
-            { 
-               // //Sleep(100);
+            {
+                // //Sleep(100);
                 *gamestate = 'i';
                 i = 0;
             }
@@ -221,12 +221,14 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
     //pause
     if (*gamestate == 'p')
     {
+        sf::Text bullettxt;
+        sf::Text hastetxt;
         viewpos = View1.getCenter();
         Text Pause;
         int pausepos;
-        Pause.setFillColor(sf::Color::White);
+        Pause.setFillColor(sf::Color(rplus,gplus,bplus));
         Pause.setFont(font2);
-        Pause.setOutlineColor(sf::Color::Black);
+        Pause.setOutlineColor(sf::Color::White);
         Pause.setOutlineThickness(2);
         Pause.setCharacterSize(130);
         Pause.setPosition(viewpos.x - 208, viewpos.y - 350);
@@ -240,7 +242,7 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
         resume.setOutlineColor(sf::Color::Black);
         resume.setOutlineThickness(2);
         resume.setCharacterSize(60);
-        resume.setPosition(viewpos.x - 110, viewpos.y - 150);
+        resume.setPosition(viewpos.x +50, viewpos.y - 150);
         sf::String st;
         st = "Resume";
         resume.setString(st);
@@ -251,7 +253,7 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
         mainmenu.setOutlineColor(sf::Color::Black);
         mainmenu.setOutlineThickness(2);
         mainmenu.setCharacterSize(60);
-        mainmenu.setPosition(viewpos.x - 140, viewpos.y - 50);
+        mainmenu.setPosition(viewpos.x +50, viewpos.y - 50);
         st = "Restart";
         mainmenu.setString(st);
         //exit
@@ -261,28 +263,131 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
         exit.setOutlineColor(sf::Color::Black);
         exit.setOutlineThickness(2);
         exit.setCharacterSize(60);
-        exit.setPosition(viewpos.x - 60, viewpos.y + 50);
+        exit.setPosition(viewpos.x +50, viewpos.y + 50);
         st = "Exit";
         exit.setString(st);
 
         //start
         //a[0].setFillColor(sf::Color::Blue);
-        a[0].setSize(sf::Vector2f(237, 63));
+        a[0].setSize(sf::Vector2f(253, 63));
         a[0].setOutlineColor(sf::Color::White);
         a[0].setOutlineThickness(2);
-        a[0].setPosition(viewpos.x - 115, viewpos.y - 143);
+        a[0].setPosition(viewpos.x +40, viewpos.y - 143);
         //leaderboard
         //a[1].setFillColor(sf::Color::Blue);
-        a[1].setSize(sf::Vector2f(315, 63));
+        a[1].setSize(sf::Vector2f(265, 63));
         a[1].setOutlineColor(sf::Color::White);
         a[1].setOutlineThickness(2);
-        a[1].setPosition(viewpos.x - 147, viewpos.y - 40);
+        a[1].setPosition(viewpos.x +40, viewpos.y - 40);
         //exit
        // a[2].setFillColor(sf::Color::Blue);
-        a[2].setSize(sf::Vector2f(120, 63));
+        a[2].setSize(sf::Vector2f(135, 63));
         a[2].setOutlineColor(sf::Color::White);
         a[2].setOutlineThickness(2);
-        a[2].setPosition(viewpos.x - 63, viewpos.y + 56.5);
+        a[2].setPosition(viewpos.x +40, viewpos.y + 56.5);
+
+        slime1->maxhpbar.setOutlineColor(sf::Color::Black);
+        slime1->maxhpbar.setOutlineThickness(1);
+        slime1->maxhpbar.setFillColor(sf::Color::Red);
+        slime1->maxhpbar.setOrigin(125, 40);
+        slime1->maxhpbar.setPosition(viewpos.x - 260, viewpos.y + 80);
+        slime1->maxhpbar.setSize(sf::Vector2f(250, 40));
+        slime1->hpbar.setFillColor(sf::Color::Green);
+        slime1->hpbar.setPosition(viewpos.x - 260, viewpos.y + 80);
+        slime1->hpbar.setOrigin(125, 40);
+        slime1->hpbar.setSize(sf::Vector2f(slime1->curhp * 250 / slime1->maxhp, 40));
+        sf::Texture spritetex[5];
+
+        spritetex[0].loadFromFile("acces/market/helth.png");
+        spritetex[1].loadFromFile("acces/market/boot.png");
+        spritetex[2].loadFromFile("acces/market/damage.png");
+        spritetex[3].loadFromFile("acces/market/bullet3.png");
+        spritetex[4].loadFromFile("acces/market/depositphotos_14691629-stock-illustration-retro-icon-of-pixel-clock.png");
+        slimetxt.loadFromFile("acces/greenslime/KK.png");
+        slime2.setTexture(slimetxt);
+        slime2.setPosition(viewpos.x - 430, viewpos.y - 250);
+        //hp
+        slime1->maxhpbar.setOutlineColor(sf::Color::Black);
+        slime1->maxhpbar.setOutlineThickness(1);
+        slime1->maxhpbar.setFillColor(sf::Color::Red);
+        slime1->maxhpbar.setOrigin(125, 40);
+        slime1->maxhpbar.setPosition(viewpos.x - 260, viewpos.y + 80);
+        slime1->maxhpbar.setSize(sf::Vector2f(250, 40));
+        slime1->hpbar.setFillColor(sf::Color::Green);
+        slime1->hpbar.setPosition(viewpos.x - 260, viewpos.y + 80);
+        slime1->hpbar.setOrigin(125, 40);
+        slime1->hpbar.setSize(sf::Vector2f(slime1->curhp * 250 / slime1->maxhp, 40));
+        hp.setFillColor(sf::Color::White);
+        hp.setFont(font1);
+        hp.setOutlineColor(sf::Color::Black);
+        hp.setOutlineThickness(5);
+        hp.setCharacterSize(40);
+        hp.setPosition(viewpos.x - 300, viewpos.y + 33);
+        char hpstr[50];
+        sprintf_s(hpstr, " %d / %d", slime1->curhp, slime1->maxhp);
+        hp.setString(hpstr);
+        sprite2[0].setTexture(spritetex[0]);
+        sprite2[0].setPosition(viewpos.x - 440, viewpos.y + 38);
+
+        slimetxt.loadFromFile("acces/greenslime/KK.png");
+        slime2.setTexture(slimetxt);
+        slime2.setPosition(viewpos.x - 430, viewpos.y - 250);
+
+        //speed
+
+        sprite2[1].setTexture(spritetex[1]);
+        sprite2[1].setPosition(viewpos.x - 440, viewpos.y + 95);
+        speed.setFillColor(sf::Color::White);
+        speed.setFont(font1);
+        speed.setOutlineColor(sf::Color::Black);
+        speed.setOutlineThickness(5);
+        speed.setCharacterSize(40);
+        speed.setPosition(viewpos.x - 380, viewpos.y + 95);
+        char speedstr[10];
+        sprintf_s(speedstr, "%.1f  m/s", slime1->slimespeed);
+        speed.setString(speedstr);
+
+        //attack
+
+        sprite2[2].setTexture(spritetex[2]);
+        sprite2[2].setPosition(viewpos.x - 440, viewpos.y + 152);
+        attack.setFillColor(sf::Color::White);
+        attack.setFont(font1);
+        attack.setOutlineColor(sf::Color::Black);
+        attack.setOutlineThickness(5);
+        attack.setCharacterSize(40);
+        attack.setPosition(viewpos.x - 380, viewpos.y + 152);
+        char attackstr[10];
+        sprintf_s(attackstr, "%.2f  dam", slime1->shootdam);
+        attack.setString(attackstr);
+
+        //bullet
+
+        sprite2[3].setTexture(spritetex[3]);
+        sprite2[3].setPosition(viewpos.x - 452, viewpos.y + 205);
+        bullettxt.setFillColor(sf::Color::White);
+        bullettxt.setFont(font1);
+        bullettxt.setOutlineColor(sf::Color::Black);
+        bullettxt.setOutlineThickness(5);
+        bullettxt.setCharacterSize(40);
+        bullettxt.setPosition(viewpos.x - 380, viewpos.y + 210);
+        char bullettxtstr[10];
+        sprintf_s(bullettxtstr, "%d bullet", slime1->numbullet);
+        bullettxt.setString(bullettxtstr);
+
+        //hates
+        sprite2[4].setTexture(spritetex[4]);
+        sprite2[4].setPosition(viewpos.x - 445, viewpos.y + 275);
+        hastetxt.setFillColor(sf::Color::White);
+        hastetxt.setFont(font1);
+        hastetxt.setOutlineColor(sf::Color::Black);
+        hastetxt.setOutlineThickness(5);
+        hastetxt.setCharacterSize(40);
+        hastetxt.setPosition(viewpos.x - 380, viewpos.y + 270);
+        char hastetxtstr[30];
+        sprintf_s(hastetxtstr, "%.3f s/round", slime1->shootcooldown);
+        hastetxt.setString(hastetxtstr);
+
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && debount > 0.2)
         {
@@ -300,7 +405,7 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
             debount = 0;
             botton.play();
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)&&debount>0.25)
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && debount > 0.25)
         {
             if (i == 0)
             {
@@ -319,7 +424,8 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
             {
                 *reset = true;
                 *gamestate = 's';
-                scoreboard[5].scorestr   = slime1->score;
+                input.clear();
+                scoreboard[5].scorestr = slime1->score;
                 Sleep(300);
                 i = 0;
             }
@@ -327,18 +433,30 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
             botton.play();
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-        {  
+        {
             *gamestate = 'g';
             Sleep(200);
 
-          
+
         }
+        window->draw(slime2);
+        window->draw(slime1->maxhpbar);
+        window->draw(slime1->hpbar);
+        window->draw(hp);
         window->draw(a[i]);
         window->draw(Pause);
         window->draw(resume);
         window->draw(mainmenu);
         window->draw(exit);
-
+        window->draw(sprite2[0]);
+        window->draw(sprite2[1]);
+        window->draw(sprite2[2]);
+        window->draw(sprite2[3]);
+        window->draw(sprite2[4]);
+        window->draw(speed);
+        window->draw(attack);
+        window->draw(bullettxt);
+        window->draw(hastetxt);
     }
     //market
     if (*gamestate == 'm')
@@ -510,8 +628,8 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
                 speed.setOutlineThickness(5);
                 speed.setCharacterSize(40);
                 speed.setPosition(viewpos.x - 400, viewpos.y + 95);
-                char speedstr[10];
-                sprintf_s(speedstr, "%.0f  m/s", slime1->slimespeed);
+                char speedstr[99];
+                sprintf_s(speedstr, "%.1f  m/s", slime1->slimespeed);
                 speed.setString(speedstr);
             }
             //attack
@@ -524,8 +642,8 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
                 attack.setOutlineThickness(5);
                 attack.setCharacterSize(40);
                 attack.setPosition(viewpos.x - 400, viewpos.y + 152);
-                char attackstr[10];
-                sprintf_s(attackstr, "%.1f  dam", slime1->shootdam);
+                char attackstr[99];
+                sprintf_s(attackstr, "%.2f  dam", slime1->shootdam);
                 attack.setString(attackstr);
             }
             //bullet
@@ -538,7 +656,7 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
                 bullettxt.setOutlineThickness(5);
                 bullettxt.setCharacterSize(40);
                 bullettxt.setPosition(viewpos.x - 400, viewpos.y + 210);
-                char bullettxtstr[10];
+                char bullettxtstr[99];
                 sprintf_s(bullettxtstr, "%d bullet", slime1->numbullet);
                 bullettxt.setString(bullettxtstr);
             }
@@ -552,7 +670,7 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
             hastetxt.setCharacterSize(40);
             hastetxt.setPosition(viewpos.x - 400, viewpos.y + 270);
             char hastetxtstr[30];
-            sprintf_s(hastetxtstr, "%.2f s/round", slime1->shootcooldown);
+            sprintf_s(hastetxtstr, "%.3f s/round", slime1->shootcooldown);
             hastetxt.setString(hastetxtstr);
         }
     
@@ -603,12 +721,10 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
                     }
                     slime1->shootcur = 0;
                     slime1->shootcooldown -= 0.125;
-                    std::cout << slime1->shootcooldown << "\n";
                 }
                 i = 0;
                 *gamestate = 'g';
             }
-        
         }
         //ui
         window->draw(a[i]);
@@ -636,9 +752,9 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
         window->draw(speed);
         window->draw(attack);
         window->draw(bullettxt);
-        window->draw(hastetxt);                                                                                                    
-    }
-    //input
+        window->draw(hastetxt);       
+                                                                                              
+    }  //input 
     if(*gamestate == 'i')
     {
         nametxtt.loadFromFile("acces/map/wooden-game-ui-vector-8957695.png");
@@ -789,7 +905,7 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
         score.setOutlineColor(sf::Color::White);
         score.setOutlineThickness(2);
         score.setCharacterSize(60);
-        score.setPosition(viewpos.x-180, viewpos.y-140);
+        score.setPosition(viewpos.x-200, viewpos.y-140);
         char scorest[50];
         sprintf_s(scorest, "Your Score = %d", slime1->score);
         score.setString(scorest);
@@ -880,6 +996,7 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
             {
                 *reset = true;
                 *gamestate = 's';
+                input.clear();
                 i = 0;
                 Sleep(250);
             }
