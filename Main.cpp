@@ -11,6 +11,7 @@
 #include "mainmenu.h"
 #include "SFML/Audio/Music.hpp"
 #include "gamelogic.h"
+sf::Texture wninja[5], ninja[5], wknight[5], knightt[5], temp[5];
 int main()
 {
     gamelogic logic;
@@ -19,6 +20,26 @@ int main()
 	playingbuff[0].loadFromFile("acces/sound/main.ogg");
 	playingbuff[1].loadFromFile("acces/sound/play.ogg");
 	playingbuff[2].loadFromFile("acces/sound/Sad Violin - Sound Effect1 (HD)_01.ogg");
+	knightt[0].loadFromFile("acces/Brave/Nknight/s.png");
+	knightt[1].loadFromFile("acces/Brave/Nknight/w.png");
+	knightt[2].loadFromFile("acces/Brave/Nknight/d.png");
+	knightt[3].loadFromFile("acces/Brave/Nknight/a.png");
+	knightt[4].loadFromFile("acces/Brave/Nknight/s.png");
+	wknight[0].loadFromFile("acces/Brave/wknight/s.png");
+	wknight[1].loadFromFile("acces/Brave/wknight/w.png");
+	wknight[2].loadFromFile("acces/Brave/wknight/d.png");
+	wknight[3].loadFromFile("acces/Brave/wknight/a.png");
+	wknight[4].loadFromFile("acces/Brave/wknight/s.png");
+	ninja[0].loadFromFile("acces/Brave/ninja/s.png");
+	ninja[1].loadFromFile("acces/Brave/ninja/w.png");
+	ninja[2].loadFromFile("acces/Brave/ninja/d.png");
+	ninja[3].loadFromFile("acces/Brave/ninja/a.png");
+	ninja[4].loadFromFile("acces/Brave/ninja/s.png");
+	wninja[0].loadFromFile("acces/Brave/wninja/s.png");
+	wninja[1].loadFromFile("acces/Brave/wninja/w.png");
+	wninja[2].loadFromFile("acces/Brave/wninja/d.png");
+	wninja[3].loadFromFile("acces/Brave/wninja/a.png");
+	wninja[4].loadFromFile("acces/Brave/wninja/s.png");
 	char gamestate = 's';
 	slime slime1;
 	sf::Clock deltatime1;
@@ -109,7 +130,28 @@ int main()
 					{
 						type = 'k';
 					}
-					knight1.push_back(new knight(type, mmainknighthelth, mmainknightspeed, damknight, expknight, scoreknight,slime1));
+					if (type == 'k')
+					{
+						if (rand() % 2 == 0)
+						{
+							knight1.push_back(new knight(type, mmainknighthelth, mmainknightspeed, damknight, expknight, scoreknight, slime1,knightt));
+						}
+						else
+						{
+							knight1.push_back(new knight(type, mmainknighthelth, mmainknightspeed, damknight, expknight, scoreknight, slime1,wknight));
+						}
+					}
+					else if (type == 'n')
+					{
+						if (rand() % 2 == 0)
+						{
+							knight1.push_back(new knight(type, mmainknighthelth, mmainknightspeed, damknight, expknight, scoreknight, slime1,ninja));
+						}
+						else
+						{
+							knight1.push_back(new knight(type, mmainknighthelth, mmainknightspeed, damknight, expknight, scoreknight, slime1,wninja));
+						}
+					}
 				}
 				clock1min -= spawnrate;
 			}
@@ -120,7 +162,7 @@ int main()
 			}
 			if (clock15sec > 60)
 			{
-				numknight++;
+				//numspawn++;
 				mmainknighthelth += 3;
 				damknight += 1;
 				scoreknight += 10;
@@ -169,7 +211,7 @@ int main()
 			}
 			if (laststate != gamestate)
 			{
-				if (gamestate == 's')
+				if (gamestate == 's'&&(laststate!='l'&&laststate!='i'&&laststate!='t'))
 				{
 					playing.setBuffer(playingbuff[0]);
 					playing.play();

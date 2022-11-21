@@ -75,6 +75,7 @@ void slime::setup()
 	curcooldown = 0;
 	curtime = 0, min = 0, sec = 0, dmin = 0, dsec = 0;
 	Lv = 1;
+
 	shootcur = 0;
 	maxshootbar.setOutlineColor(sf::Color::Black);
 	maxshootbar.setOutlineThickness(1);
@@ -88,6 +89,11 @@ void slime::setup()
 	else
 	{
 		spelltype = 't';
+	
+	}
+	for (int i = 0; i < 5; i++)
+	{
+		shoot[0].shoot.setRadius(0);
 	}
 	}
 void slime::slimemove(sf::RenderWindow* window, sf::View* view1, float deltatime, char* gamestate)

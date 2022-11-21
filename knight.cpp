@@ -6,54 +6,14 @@
 sf::Sprite test;
 sf::Texture food[4];
 int rannum = 0;
-knight::knight(char type,float mmainknighthelth,float mmainknightspeed ,float damknight ,float expknight,float scoreknight,slime slime1)
+knight::knight(char type,float mmainknighthelth,float mmainknightspeed ,float damknight ,float expknight,float scoreknight,slime slime1,sf::Texture knightTexture1[5])
 {
+	for (int i = 0; i < 5; i++)
+		knightTexture[i] = knightTexture1[i];
 	knighttype = type;
 	rannum = 0;
-	food[0].loadFromFile("acces/food/1.png");
-	food[1].loadFromFile("acces/food/2.png");
-	food[2].loadFromFile("acces/food/3.png");
-	food[3].loadFromFile("acces/food/4.png");
 	knighthitbox.setSize(sf::Vector2f(30, 50));
 	knighthitbox.setOrigin(20, 25);
-	if (knighttype == 'k')
-	{
-		if (rand() % 2 == 0)
-		{
-			knightTexture[0].loadFromFile("acces/Brave/Nknight/s.png");
-			knightTexture[1].loadFromFile("acces/Brave/Nknight/w.png");
-			knightTexture[2].loadFromFile("acces/Brave/Nknight/d.png");
-			knightTexture[3].loadFromFile("acces/Brave/Nknight/a.png");
-			knightTexture[4].loadFromFile("acces/Brave/Nknight/s.png");
-		}
-		else
-		{
-			knightTexture[0].loadFromFile("acces/Brave/wknight/s.png");
-			knightTexture[1].loadFromFile("acces/Brave/wknight/w.png");
-			knightTexture[2].loadFromFile("acces/Brave/wknight/d.png");
-			knightTexture[3].loadFromFile("acces/Brave/wknight/a.png");
-			knightTexture[4].loadFromFile("acces/Brave/wknight/s.png");
-		}
-	}
-	else if (knighttype == 'n')
-	{
-		if (rand() % 2 == 0) 
-		{
-			knightTexture[0].loadFromFile("acces/Brave/ninja/s.png");
-			knightTexture[1].loadFromFile("acces/Brave/ninja/w.png");
-			knightTexture[2].loadFromFile("acces/Brave/ninja/d.png");
-			knightTexture[3].loadFromFile("acces/Brave/ninja/a.png");
-			knightTexture[4].loadFromFile("acces/Brave/ninja/s.png");
-		}
-		else
-		{
-			knightTexture[0].loadFromFile("acces/Brave/wninja/s.png");
-			knightTexture[1].loadFromFile("acces/Brave/wninja/w.png");
-			knightTexture[2].loadFromFile("acces/Brave/wninja/d.png");
-			knightTexture[3].loadFromFile("acces/Brave/wninja/a.png");
-			knightTexture[4].loadFromFile("acces/Brave/wninja/s.png");
-		}
-	}
 	Knight0.setOrigin(26.f, 30.f);
 	if (knighttype == 'k')
 	{
