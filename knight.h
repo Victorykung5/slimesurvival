@@ -23,7 +23,7 @@ void knightmove(sf::RenderWindow* window, slime slime, float slimex,float slimey
 void update(sf::RenderWindow* windwo, slime *slime1, float deltatime,char* gamestate);
 private:
 float totaltime = 0, switchtime = 0.3;
-
+float knightspeedx, knightspeedy,dx,dy;
 int knightframe = 0;
 sf::CircleShape exp;
 int speedrand=0;
@@ -35,5 +35,5 @@ sf::SoundBuffer soundbuffer[3];//0=eatfood 1=knightattackslime  2=expget
 sf::Sound eatfood;
 bool expdrop=false;
 bool moving[4]{true,true,true,true};
-bool knockbacking[4]{true,true,true,true};
+
 };

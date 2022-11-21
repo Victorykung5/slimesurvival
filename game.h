@@ -1,0 +1,12 @@
+#pragma once
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+#include <Windows.h>
+#include <iostream>
+#include <time.h>
+#include <vector>
+#include "slime.h"
+#include "test.h"
+#include "knight.h"
+#include "game.h"
+#include "SFML/Audio/Music.hpp"

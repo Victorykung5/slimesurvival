@@ -17,6 +17,7 @@ std::fstream score;
 sf::Text non[5], nos[5];
 float rplus = 0, bplus = 0, gplus = 0, pow1 = 2;
 sf::Sprite crown[3];
+int how = 0;
 sf::Texture corwntxt[3];
 mainmenu::mainmenu()
 {
@@ -35,8 +36,8 @@ mainmenu::mainmenu()
 void mainmenu::writefile()
 {
     score.open("acces/scoreboard.txt");
-    score << scoreboard[0].name<<"\n"<<scoreboard[0].scoreint << "\n" << scoreboard[1].name << "\n" << scoreboard[1].scoreint << "\n" << scoreboard[2].name << "\n" << scoreboard[2].scoreint << "\n"
-        << scoreboard[3].name << "\n" << scoreboard[3].scoreint << "\n" << scoreboard[4].name << "\n" << scoreboard[4].scoreint;
+    score << scoreboard[0].name<<"\n"<<scoreboard[0].scoreint << "\n" << scoreboard[1].name << "\n" << scoreboard[1].scoreint << "\n" << scoreboard[2].name << "\n"
+        << scoreboard[2].scoreint << "\n"<< scoreboard[3].name << "\n" << scoreboard[3].scoreint << "\n" << scoreboard[4].name << "\n" << scoreboard[4].scoreint;
     score.close();
 }
 void mainmenu::checkhightscore(int scoreslime)
@@ -146,16 +147,37 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
         st = "Leaderboard";
         board.setString(st);
         //exit
+        Text how;
+        how.setFillColor(sf::Color::Green);
+        how.setFont(font2);
+        how.setOutlineColor(sf::Color::Black);
+        how.setOutlineThickness(4);
+        how.setCharacterSize(60);
+        how.setPosition(viewpos.x - 180, viewpos.y + 50);
+        st = "How to play";
+        how.setString(st);
+
+        //exit
         Text exit;
         exit.setFillColor(sf::Color::Green);
         exit.setFont(font2);
         exit.setOutlineColor(sf::Color::Black);
         exit.setOutlineThickness(4);
         exit.setCharacterSize(60);
-        exit.setPosition(viewpos.x - 60, viewpos.y + 50);
+        exit.setPosition(viewpos.x - 60, viewpos.y + 150);
         st = "Exit";
         exit.setString(st);
 
+        //exit
+        Text name;
+        name.setFillColor(sf::Color(rplus,gplus,bplus));
+        name.setFont(font3);
+        name.setOutlineColor(sf::Color::Black);
+        name.setOutlineThickness(4);
+        name.setCharacterSize(30);
+        name.setPosition(viewpos.x - 460, viewpos.y + 300);
+        st = "65010244 Thanith kongsmoot";
+        name.setString(st);
         //start
         a[0].setFillColor(sf::Color::White);
         a[0].setSize(sf::Vector2f(187, 63));
@@ -168,17 +190,23 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
         a[1].setOutlineColor(sf::Color::Black);
         a[1].setOutlineThickness(4);
         a[1].setPosition(viewpos.x - 205, viewpos.y - 40);
-        //exit
+        //how
         a[2].setFillColor(sf::Color::White);
-        a[2].setSize(sf::Vector2f(120, 63));
+        a[2].setSize(sf::Vector2f(390, 63));
         a[2].setOutlineColor(sf::Color::Black);
         a[2].setOutlineThickness(4);
-        a[2].setPosition(viewpos.x - 63, viewpos.y + 56.5);
+        a[2].setPosition(viewpos.x - 184, viewpos.y + 56.5);
+        //exit
+        a[3].setFillColor(sf::Color::White);
+        a[3].setSize(sf::Vector2f(120, 63));
+        a[3].setOutlineColor(sf::Color::Black);
+        a[3].setOutlineThickness(4);
+        a[3].setPosition(viewpos.x - 63, viewpos.y + 156.5);
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && debount > 0.25)
         {
             i++;
-            if (i == 3)
+            if (i == 4)
                 i = 0;
             botton.play();
             debount = 0;
@@ -187,7 +215,7 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
         {
             i--;
             if (i == -1)
-                i = 2;
+                i = 3;
             botton.play();
             debount = 0;
         }
@@ -204,7 +232,13 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
                 *gamestate = 'l';
                 i = 0;
             }
-            else if (i == 2)
+            else if (i==2)
+            {
+                *gamestate = 't';
+                Sleep(100);
+                i = 0;
+            }
+            else if (i == 3)
                 window->close();
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
@@ -216,7 +250,9 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
         window->draw(gamename);
         window->draw(start);
         window->draw(board);
+        window->draw(how);
         window->draw(exit);
+        window->draw(name);
     }
     //pause
     if (*gamestate == 'p')
@@ -343,7 +379,7 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
         speed.setOutlineThickness(5);
         speed.setCharacterSize(40);
         speed.setPosition(viewpos.x - 380, viewpos.y + 95);
-        char speedstr[10];
+        char speedstr[99];
         sprintf_s(speedstr, "%.1f  m/s", slime1->slimespeed);
         speed.setString(speedstr);
 
@@ -357,7 +393,7 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
         attack.setOutlineThickness(5);
         attack.setCharacterSize(40);
         attack.setPosition(viewpos.x - 380, viewpos.y + 152);
-        char attackstr[10];
+        char attackstr[20];
         sprintf_s(attackstr, "%.2f  dam", slime1->shootdam);
         attack.setString(attackstr);
 
@@ -371,7 +407,7 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
         bullettxt.setOutlineThickness(5);
         bullettxt.setCharacterSize(40);
         bullettxt.setPosition(viewpos.x - 380, viewpos.y + 210);
-        char bullettxtstr[10];
+        char bullettxtstr[20];
         sprintf_s(bullettxtstr, "%d bullet", slime1->numbullet);
         bullettxt.setString(bullettxtstr);
 
@@ -755,6 +791,7 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
         window->draw(hastetxt);       
                                                                                               
     }  //input 
+    //input
     if(*gamestate == 'i')
     {
         nametxtt.loadFromFile("acces/map/wooden-game-ui-vector-8957695.png");
@@ -1013,5 +1050,45 @@ void mainmenu::mainmenudraw(sf::RenderWindow* window, sf::View View1, char* game
         }
               
     }
-
+    //howtoplay
+    if (*gamestate == 't') {
+        sf::Sprite howtoplay;
+        sf::Texture howtxt[2];
+        howtxt[0].loadFromFile("acces/tt/11.png");
+        howtxt[1].loadFromFile("acces/tt/12.png");
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && debount > 0.2)
+        {
+            how++;
+            if (how == 2)
+                how = 0;
+            debount = 0;
+            Sleep(100);
+            botton.play();
+        }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && debount > 0.2)
+        {
+            how--;
+            if (how == -1)
+                how = 1;
+            Sleep(100);
+            debount = 0;
+            botton.play();
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        {
+            *gamestate = 's';
+            Sleep(200);
+        }
+        if (how == 0)
+        {
+            howtoplay.setTexture(howtxt[0]);
+            howtoplay.setPosition(viewpos.x - 480, viewpos.y - 340);
+        }
+        if (how == 1)
+        {
+            howtoplay.setTexture(howtxt[1]);
+            howtoplay.setPosition(viewpos.x - 480, viewpos.y - 340);
+        }
+        window->draw(howtoplay);
+    }
 }

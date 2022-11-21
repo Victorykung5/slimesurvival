@@ -94,8 +94,6 @@ void slime::slimemove(sf::RenderWindow* window, sf::View* view1, float deltatime
 {
 	positionslime = Slime.getPosition();
 	positionview = view1->getCenter();
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
-		*gamestate = 'p';
 	//hitbox
 	{
 		slimehitbox.setPosition(positionslime.x, positionslime.y);
@@ -626,7 +624,7 @@ void slime::slimemove(sf::RenderWindow* window, sf::View* view1, float deltatime
 			 {
 				 int i = rand() % 2;
 				 spelling = false;
-				 slimespeed -= 30;
+				 slimespeed -= 50;
 				 si = 0;
 				 spell.setRadius(0);
 				 if (i == 1)

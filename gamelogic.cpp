@@ -25,12 +25,6 @@ void gamelogic::logic(sf::RenderWindow* window, sf::View view, slime* slime1, st
 	{
 		for (int i = 0; i < knight1.size(); i++)
 		{
-			std::cout << "yo";
-			std::cout << "hi";
-			for (int j = 0; j < 5; j++)
-			{
-				std::cout << "hi";
-			}
 			//slimetakedam
 			if (knight1[i]->knighthitbox.getGlobalBounds().intersects(slime1->slimehitbox.getGlobalBounds()))
 			{
@@ -44,12 +38,11 @@ void gamelogic::logic(sf::RenderWindow* window, sf::View view, slime* slime1, st
 					if (slime1->curhp <= 0)
 					{
 						*gamestate = 'o';
-
 					}
 				}
 			}
 			//enemytakedam
-			for (int j = 0; j < 5; j++)
+			for (int j = 0; j < slime1->numbullet; j++)
 			{
 				if (knight1.size() > 0) 
 				{
@@ -141,22 +134,25 @@ void gamelogic::logic(sf::RenderWindow* window, sf::View view, slime* slime1, st
 				}
 			}
 			//check
-			if (knight1[i]->knighthitbox.getGlobalBounds().intersects(slime1->slimehitbox.getGlobalBounds()) && knight1[i]->knighttype == 'n')
+			if (knight1.size() > 0)
 			{
-				slime1->curhp -= knight1[i]->knightdam;
-				slime1->damageable = false;
-				eatfood[1].setVolume(20);
-				eatfood[1].setBuffer(soundbuffer[1]);
-				eatfood[1].play();
-				slime1->score += knight1[i]->knightscore;
-				if (knight1.size() > 0)
+				if (knight1[i]->knighthitbox.getGlobalBounds().intersects(slime1->slimehitbox.getGlobalBounds()) && knight1[i]->knighttype == 'n')
 				{
-					knight1.erase(knight1.begin() + i);
-				}
-				if (slime1->curhp <= 0)
-				{
-					*gamestate = 'o';
+					slime1->curhp -= knight1[i]->knightdam;
+					slime1->damageable = false;
+					eatfood[1].setVolume(20);
+					eatfood[1].setBuffer(soundbuffer[1]);
+					eatfood[1].play();
+					slime1->score += knight1[i]->knightscore;
+					if (knight1.size() > 0)
+					{
+						knight1.erase(knight1.begin() + i);
+					}
+					if (slime1->curhp <= 0)
+					{
+						*gamestate = 'o';
 
+					}
 				}
 			}
 		}

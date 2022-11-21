@@ -89,7 +89,6 @@ knight::knight(char type,float mmainknighthelth,float mmainknightspeed ,float da
 	for (int i = 0; i < 4; i++)
 	{
 		moving[i] = true;
-		knockbacking[i] = true;
 	}
 }
 void knight::setup()
@@ -99,13 +98,14 @@ void knight::knightmove(sf::RenderWindow* window, slime slime1, float slimex, fl
 {   //mainmove
 	if (knightready == 0)
 	{
+	
 		int readyx = 0, readyy = 0;
 		do {
 			readyx = rand() % 2500;
 			readyy = rand() % 1321;
-	    	} while ((readyx<viewx + 480 && readyx>viewx - 480) || (readyy<viewy + 340 && readyy>viewy - 340));
+			} while ((readyx<viewx + 480 && readyx>viewx - 480) || (readyy<viewy + 340 && readyy>viewy - 340));
 		Knight0.setPosition(readyx, readyy);
-		speedrand = rand() % 8;
+		speedrand = rand() % 10;
 		knightready = 1;
 	}
 	if (true)
@@ -115,10 +115,9 @@ void knight::knightmove(sf::RenderWindow* window, slime slime1, float slimex, fl
 		{
 			knightspeed = 10;
 		}
-	    sf::Vector2f positionknight = Knight0.getPosition();
-		float knightspeedx = knightspeed, knightspeedy = knightspeed;
-		float dx = slimex - positionknight.x;
-		float dy = slimey - positionknight.y;
+		knightposition = Knight0.getPosition();
+	  	dx = slimex - knightposition.x;
+		dy = slimey - knightposition.y;
 		Knight0.setTextureRect(sf::IntRect(0, 0, 50, 60));
 		knightspeedx = abs(knightspeed*dx/ sqrt(pow(dx, 2) + pow(dy, 2)));
 		knightspeedy = abs(knightspeed * dy / sqrt(pow(dx, 2) + pow(dy, 2)));
@@ -246,172 +245,10 @@ void knight::knightmove(sf::RenderWindow* window, slime slime1, float slimex, fl
 		}
 	}
 	//hitbox
-	knightposition = Knight0.getPosition();
 	knighthitbox.setPosition(knightposition.x, knightposition.y);
 	knighthitbox.setFillColor(sf::Color(sf::Color::Black));
 
 	//update
 	if(knightposition.x<=viewx+480&&knightposition.x>=viewx-480&&knightposition.y<=viewy+340&&knightposition.y>=viewy-340)
 	window->draw(Knight0);
-}
-void knight::update(sf::RenderWindow* window, slime *slime1, float deltatime,char* gamestate)
-{
-	hp.setTexture(&food[rannum], true);
-	//enimetakedam
-	for(int i=0;i<slime1->numbullet;i++)
-	{ 
-		if (knighthitbox.getGlobalBounds().intersects(slime1->shoot[i].shoot.getGlobalBounds()))
-		{
-			knighthelth -= slime1->shootdam;
-			if (knighthelth <= 0)
-			{
-				int a = rand() % 100;
-				//expdrop
-				if (a < 100)
-				{		
-					
-						int xplus = pow(-1, rand() % 2) * (rand() % 20);
-						int yplus = pow(-1, rand() % 2) * (rand() % 50);
-						exp.setOutlineColor(sf::Color::Black);
-						exp.setFillColor(sf::Color::Cyan);
-						exp.setOrigin(6, 6);
-						exp.setOutlineThickness(1.5);
-						exp.setRadius(6);
-						exp.setPosition(knightposition.x + xplus, knightposition.y + yplus);
-						expdrop = true;
-					
-				}
-				//hpdrop
-				if (a < 20)
-				{
-					int xplus = pow(-1, rand() % 2) * (rand() % 30);
-					int yplus = pow(-1, rand() % 2) * (rand() % 45);
-					hp.setRadius(20);
-					hp.setOrigin(20,20);
-					hp.setPosition(knightposition.x + xplus, knightposition.y + yplus);
-					hpdrop = true;
-					rannum = rand() % 4;
-				}
-				knightready = 0;
-				knighthelth = mainknighthelth;
-				slime1->score += knightscore;
-			}
-			else
-			{
-				if (slime1->shoot[i].k == 'd')
-				{
-
-					Knight0.move(14, 0);
-				}
-				else if (slime1->shoot[i].k == 'a' && moving[3] == true)
-				{
-					Knight0.move(-14, 0);
-				}
-				else if (slime1->shoot[i].k == 'w' && moving[0] == true)
-				{
-					Knight0.move(0, -14);
-				}
-				else if (slime1->shoot[i].k == 's' && moving[1] == true)
-				{
-					Knight0.move(0, 14);
-				}
-				else if (slime1->shoot[i].k == '3' && moving[3] == true && moving[1] == true)
-				{
-					Knight0.move(-30/sqrt(2), 30 / sqrt(2));
-				}
-				else if (slime1->shoot[i].k == '2' && moving[3] == true && moving[0] == true)
-				{
-					Knight0.move(-30 / sqrt(2), -30 / sqrt(2));
-				}
-				else if (slime1->shoot[i].k == '1' && moving[0] == true && moving[3] == true)
-				{
-					Knight0.move(30 / sqrt(2), -30 / sqrt(2));
-				}
-				else if (slime1->shoot[i].k == '4' && moving[1] == true && moving[3] == true)
-				{
-					Knight0.move(30 / sqrt(2), 30 / sqrt(2));
-				}
-			}
-			slime1->shoot[i].shootbol = false;
-			slime1->shoot[i].shoot.setPosition(slime1->positionslime.x, slime1->positionslime.y);
-			slime1->shoot[i].shoot.setRadius(0);
-		}
-    }
-	//pickup
-	//exppickup
-	if (exp.getGlobalBounds().intersects(slime1->pickup.getGlobalBounds())&&expdrop==true)
-	{
-		sf::Vector2f positionexp = exp.getPosition();
-		float expspeedx = 50, expspeedy = 50;
-		float dx = slime1->positionslime.x - positionexp.x;
-		float dy = slime1->positionslime.y - positionexp.y;
-		if (abs(dx) <= abs(dy) && dx != 0)
-		{
-			expspeedx = abs(knightspeed * dx / dy);
-		}
-		else if (abs(dx) > abs(dy) && dy != 0)
-		{
-			expspeedy = abs(knightspeed * dy / dx);
-		}
-		if (dy > 0)
-		{
-			exp.move(0.f, expspeedy*5 * deltatime);
-		}
-		else if (dy < 0)
-		{
-			exp.move(0.f,-expspeedy*5*deltatime);
-		}
-		if (dx > 0)
-		{
-			exp.move(expspeedx*5*deltatime, 0.f);
-		}
-		else if (dx < 0)
-		{
-			exp.move(-expspeedx*5* deltatime, 0.f);
-		}
-		if (exp.getGlobalBounds().intersects(slime1->slimehitbox.getGlobalBounds()))
-		{
-			eatfood.setBuffer(soundbuffer[2]);
-			eatfood.setVolume(10);
-			eatfood.play();
-			exp.setRadius(0);
-			expdrop = false;
-			slime1->curexp += knightexp;
-		}
-	}
-	//hppickup
-	if (hp.getGlobalBounds().intersects(slime1->slimehitbox.getGlobalBounds()))
-	{
-		eatfood.setBuffer(soundbuffer[0]);
-		eatfood.play();
-		hp.setRadius(0);
-		hpdrop = false;
-		if (slime1->curhp < slime1->maxhp)
-			slime1->curhp += 1;
-	}
-	//slimetakedam
-	if (knighthitbox.getGlobalBounds().intersects(slime1->slimehitbox.getGlobalBounds()))
-	{
-		if (slime1->damageable==true)
-		{
-			slime1->curhp -= knightdam;
-			slime1->damageable = false;
-			eatfood.setBuffer(soundbuffer[1]);
-			eatfood.play();
-			if (slime1->curhp <= 0)
-			{
-				*gamestate = 'o';
-				slime1->curhp = slime1->maxhp;
-			}
-		}
-	}
-	//draw
-	if (true)
-	{
-		window->draw(hp);
-		window->draw(Knight0);
-		window->draw(exp);						
-		window->draw(test);
-		
-	}
 }
